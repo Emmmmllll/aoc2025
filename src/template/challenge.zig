@@ -7,13 +7,13 @@ pub const main = utils.buildMain(.{
     // .challenge2 = challenge2,
 });
 
-pub fn challenge1(alloc: Allocator, input: []const u8) !void {
+pub fn challenge1(alloc: Allocator, input: []const u8) !usize {
     _ = alloc;
     _ = input;
     return error.NotImplemented;
 }
 
-pub fn challenge2(alloc: Allocator, input: []const u8) !void {
+pub fn challenge2(alloc: Allocator, input: []const u8) !usize {
     _ = alloc;
     _ = input;
     return error.NotImplemented;
