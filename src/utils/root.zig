@@ -28,13 +28,25 @@ pub fn buildMain(comptime options: BuildMainOptions) VoidFn {
             var out_writer = std.fs.File.stdout().writer(&out_buffer);
 
             if (options.challenge1) |c1| {
+                var timer: ?std.time.Timer = std.time.Timer.start() catch null;
                 const res = try c1(alloc, input);
-                out_writer.interface.print("Challenge 1: {d}\n", .{res}) catch {};
+                const time = if (timer) |*t| t.read() else null;
+                out_writer.interface.print("Challenge 1: {d}", .{res}) catch {};
+                if (time) |t| {
+                    out_writer.interface.print(" ({d} ms)", .{t / std.time.ns_per_ms}) catch {};
+                }
+                out_writer.interface.print("\n", .{}) catch {};
                 out_writer.interface.flush() catch {};
             }
             if (options.challenge2) |c2| {
+                var timer: ?std.time.Timer = std.time.Timer.start() catch null;
                 const res = try c2(alloc, input);
-                out_writer.interface.print("Challenge 2: {d}\n", .{res}) catch {};
+                const time = if (timer) |*t| t.read() else null;
+                out_writer.interface.print("Challenge 2: {d}", .{res}) catch {};
+                if (time) |t| {
+                    out_writer.interface.print(" ({d} ms)", .{t / std.time.ns_per_ms}) catch {};
+                }
+                out_writer.interface.print("\n", .{}) catch {};
                 out_writer.interface.flush() catch {};
             }
         }
