@@ -50,6 +50,7 @@ pub fn build(b: *std.Build) void {
     const exe = b.addExecutable(.{
         .root_module = mod,
         .name = "challenge",
+        .use_llvm = b.option(bool, "llvm", "Use llvm"),
     });
 
     b.installArtifact(exe);
