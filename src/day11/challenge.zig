@@ -60,27 +60,7 @@ const Immediate = struct {
     }
 };
 
-const Cache = struct {
-    map: std.AutoHashMap(Label, Immediate),
-
-    pub fn init(alloc: Allocator) Cache {
-        return Cache{
-            .map = std.AutoHashMap(Label, Immediate).init(alloc),
-        };
-    }
-
-    pub fn put(self: *Cache, label: Label, value: Immediate) !void {
-        try self.map.put(label, value);
-    }
-
-    pub fn get(self: *const Cache, label: Label) ?Immediate {
-        return self.map.get(label);
-    }
-
-    pub fn deinit(self: *Cache) void {
-        self.map.deinit();
-    }
-};
+const Cache = std.AutoArrayHashMap(Label, Immediate);
 
 const Map = struct {
     map: std.AutoArrayHashMap(Label, []const Label),
